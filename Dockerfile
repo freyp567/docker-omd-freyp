@@ -29,7 +29,7 @@ RUN omd create cmkfrey || true
 
 # https://monitoring-portal.org/index.php?thread/28386-site-konfiguration-via-skript/&s=9c8d12a866a4602ba59378468f2afc0b8df77196
 RUN omd config cmkfrey set DEFAULT_GUI check_mk
-
+RUN omd config cmkfrey set THRUK_COOKIE_AUTH off
 RUN omd config cmkfrey set APACHE_TCP_ADDR 0.0.0.0
 
 RUN echo 'root:xxx' | chpasswd
