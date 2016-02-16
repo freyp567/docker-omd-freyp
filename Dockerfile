@@ -32,8 +32,8 @@ RUN omd config cmkfrey set DEFAULT_GUI check_mk
 
 RUN omd config cmkfrey set APACHE_TCP_ADDR 0.0.0.0
 
-RUN echo 'root:frpadmin' | chpasswd
-RUN echo 'cmkfrey:freycmk' | chpasswd
+RUN echo 'root:xxx' | chpasswd
+RUN echo 'cmkfrey:xxx' | chpasswd
 
 #ENV OMD_DEMO /opt/omd/sites/demo
 ENV OMD_DEMO /opt/omd/sites/cmkfrey
