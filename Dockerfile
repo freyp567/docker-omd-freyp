@@ -32,11 +32,21 @@ RUN omd config cmkfrey set DEFAULT_GUI check_mk
 RUN omd config cmkfrey set THRUK_COOKIE_AUTH off
 RUN omd config cmkfrey set APACHE_TCP_ADDR 0.0.0.0
 
+# workaround for Livestatus problem "Table 'hosts' has no column 'host_comments_with_extra_info'"
+# with core naemon
+RUN omd config cmkfrey set CORE nagios
+
+#TODO configure default password for omdadmin at build time? seems not to work
 RUN echo 'root:xxx' | chpasswd
 RUN echo 'cmkfrey:xxx' | chpasswd
 
 #ENV OMD_DEMO /opt/omd/sites/demo
-ENV OMD_DEMO /opt/omd/sites/cmkfrey
+ENV OMD_SITE /opt/omd/sites/cmkfrey
+
+# install check_mk agent to monitor self
+RUN dpkg -i /opt/omd/versions/default/share/check_mk/agents/check-mk-agent_1.2.6p12-1_all.deb
+
+#TODO add localhost to check-mk inventory at Docker build time? vs defer to initialization at runtime
 
 ADD run_omd.sh /run_omd.sh
 CMD ["/run_omd.sh"]
